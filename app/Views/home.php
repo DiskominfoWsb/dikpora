@@ -491,9 +491,9 @@
                                                 </li>
                                                 <?php for($i=0; $i<count($menu1['menu']['menu_child']); $i++): ?>
                                                     <li<?php if($menu1['menu']['menu_child'][$i]['menu_child']) echo ' class="induk-semang"'; ?>>
-                                                        <a href="<?php echo base_url('halaman/'.$menu1['page'][$menu1['menu']['menu_child'][$i]['menu_ID']]['slug']); ?>" class="a-normal text-dark">
-                                                            <?php echo $menu1['page'][$menu1['menu']['menu_child'][$i]['menu_ID']]['title']; ?>
-                                                            <?php if($menu1['menu']['menu_child'][$i]['menu_child']) echo ' <i class="bi bi-chevron-right"></i>'; ?>
+                                                        <a href="<?php echo base_url('halaman/'.($menu1['page'][$menu1['menu']['menu_child'][$i]['menu_ID']]['slug']??"")); ?>" class="a-normal text-dark">
+                                                            <?php echo $menu1['page'][$menu1['menu']['menu_child'][$i]['menu_ID']]['title']??""; ?>
+                                                            <?php if($menu1['menu']['menu_child'][$i]['menu_child']??"") echo ' <i class="bi bi-chevron-right"></i>'; ?>
                                                         </a>
                                                         <?php
                                                         if($menu1['menu']['menu_child'][$i]['menu_child'])
