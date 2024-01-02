@@ -119,7 +119,7 @@ class Home extends BaseController
         $builder->limit(9);
         $result = $builder->get()->getResultArray();
         $this->data['newsletter'] = $result;
-        return  $this->data['navMenu3'] ;
+        return  json_encode($this->data['navMenu3']) ;
         return view('home', $this->data);
     }
 }
