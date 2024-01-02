@@ -11,6 +11,98 @@
         <form method="post" action="<?php echo base_url(); ?>/option/save" enctype="multipart/form-data">
             <div class="row">
 
+                <div class="col-lg-5 pe-0 form-group">
+                    <ul class="nav nav-tabs" id="tabMenu" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Menu</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Halaman</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Kategori</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="tabContent">
+                        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                            <div class="border-start border-end border-bottom p-3" style="height: 350px; max-height: 350px; overflow-y: auto; background: #fff;">
+                                <p class="my-1 fst-italic">Tambah link menu manual dan/ halaman statis</p>
+                                <div class="form-group">
+                                    <input type="text" id="menu-new-title" name="menu-new-title" class="form-control form-control-sm my-2" placeholder="Judul" style="width: 60%;">
+                                    <input type="text" id="menu-new-url" name="menu-new-url" class="form-control form-control-sm" my-2 placeholder="URL">
+                                    <button type="button" id="menu-new-button" class="btn btn-sm btn-primary my-2">Tambahkan &raquo;</button>
+                                </div>
+                                <p class="my-1 fst-italic">Halaman statis yang tersedia:</p>
+                                <ul class="p-0">
+                                    <?php for($i=0; $i<count($halamanStatis); $i++): ?>
+                                    <li class="d-block my-1">
+                                        <div class="py-2 ps-3 pe-2 border border-1">
+                                            <div class="float-end me-1">
+                                                <span class="d-inline-block px-2 fw-bold cursor-pointer" onclick="menuNewStatic(<?php echo "'".addslashes($halamanStatis[$i]['title'])."','s".$halamanStatis[$i]['ID']."','".$halamanStatis[$i]['url']."'"; ?>)">
+                                                    &raquo;
+                                                </span>
+                                            </div>
+                                            <div><?php echo $halamanStatis[$i]['title']; ?></div>
+                                        </div>
+                                    </li>
+                                    <?php endfor; ?>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                            <div class="border-start border-end border-bottom p-3" style="height: 350px; max-height: 350px; overflow-y: auto; background: #fff;">
+                                <p class="my-1 fst-italic">Halaman dinamis aktif:</p>
+                                <ul class="p-0">
+                                    <?php for($i=0; $i<count($halamanDinamis); $i++): ?>
+                                        <li class="d-block my-1">
+                                            <div class="py-2 ps-3 pe-2 border border-1">
+                                                <div class="float-end me-1">
+                                                <span class="d-inline-block px-2 fw-bold cursor-pointer" onclick="menuNewDynamic(<?php echo "'".addslashes($halamanDinamis[$i]['title'])."','p".$halamanDinamis[$i]['ID']."','".base_url('halaman/'.$halamanDinamis[$i]['slug'])."'"; ?>)">
+                                                    &raquo;
+                                                </span>
+                                                </div>
+                                                <div><?php echo $halamanDinamis[$i]['title']; ?></div>
+                                            </div>
+                                        </li>
+                                    <?php endfor; ?>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                            <div class="border-start border-end border-bottom p-3" style="height: 350px; max-height: 350px; overflow-y: auto; background: #fff;">
+                                <p class="my-1 fst-italic">Kategori dinamis aktif:</p>
+                                <ul class="p-0">
+                                    <?php for($i=0; $i<count($kategoriDinamis); $i++): ?>
+                                        <li class="d-block my-1">
+                                            <div class="py-2 ps-3 pe-2 border border-1">
+                                                <div class="float-end me-1">
+                                                <span class="d-inline-block px-2 fw-bold cursor-pointer" onclick="menuNewStatic(<?php echo "'".addslashes($kategoriDinamis[$i]['name'])."','c".$kategoriDinamis[$i]['ID']."','".base_url('artikel/arsip/'.$kategoriDinamis[$i]['ID'])."'"; ?>)">
+                                                    &raquo;
+                                                </span>
+                                                </div>
+                                                <div><?php echo $kategoriDinamis[$i]['name']; ?></div>
+                                            </div>
+                                        </li>
+                                    <?php endfor; ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-1 text-center">
+                    <br><br><br><br><br><br><br><br>
+                    <i class="bi bi-chevron-right fs-2"></i>
+                </div>
+
+                <div id="canvasNavMenuNew" class="col-lg-6 ps-0 form-group" style="height: 388px; max-height: 388px; overflow-y: scroll;">
+                    <ul id="parent-0" class="menu-sortable m-0 p-0">
+                        <?php echo $navMenuNew; ?>
+                    </ul>
+                </div>
+
+                <div class="col-12 mb-1 px-3"><hr class="border-1"></div>
+
                 <div class="col-lg-6 form-group">
                     <h6 class="mb-2">
                         Banner Popup
@@ -50,7 +142,7 @@
                 <div class="col-lg-6 mb-2">
                     <div class="form-group mb-2">
                         <input type="hidden" name="modalToolsId[<?php echo $i; ?>]" value="<?php echo $layananInovasi[$i]->id; ?>">
-                        <input type="hidden" name="modalToolsIcon[<?php echo $i; ?>]" value="<?php echo $layananInovasi[$i]->icon; ?>">
+                        <input type="hidden" name="modalToolsIcon[<?php echo $i; ?>]" value="<?php echo str_replace('devdpupr','dpupr',$layananInovasi[$i]->icon); ?>">
                         <div class="input-group input-group-sm mb-1">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon<?php echo $i; ?>" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">Judul</span>
@@ -147,8 +239,101 @@
                 </div>
 
             </div>
+
             <button type="submit" class="btn btn-primary mt-3">Simpan</button>
         </form>
     </article>
 
+</div>
+
+
+<!-- Modal menu -->
+<div id="modal-menu-child" class="modal fade">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="menu-child-parent" value="">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Sub Menu</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 pt-3">
+                <ul class="nav nav-tabs" id="tabMenuChild" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab-child" data-bs-toggle="tab" data-bs-target="#home-tab-pane-child" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Menu</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab-child" data-bs-toggle="tab" data-bs-target="#profile-tab-pane-child" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Halaman</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="contact-tab-child" data-bs-toggle="tab" data-bs-target="#contact-tab-pane-child" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Kategori</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="tabContentChild">
+                    <div class="tab-pane fade show active" id="home-tab-pane-child" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                        <div class="border-start border-end border-bottom p-3" style="height: 400px; max-height: 400px; overflow-y: auto; background: #fff;">
+                            <p class="my-1 fst-italic">Tambah link menu manual dan/ halaman statis</p>
+                            <div class="form-group">
+                                <input type="text" id="menu-child-new-title" name="menu-child-new-title" class="form-control form-control-sm my-2" placeholder="Judul" style="width: 75%;">
+                                <input type="text" id="menu-child-new-url" name="menu-child-new-url" class="form-control form-control-sm" my-2 placeholder="URL">
+                                <button type="button" id="menu-child-new-button" class="btn btn-sm btn-primary my-2">Tambahkan &raquo;</button>
+                            </div>
+                            <p class="my-1 fst-italic">Halaman statis yang tersedia:</p>
+                            <ul class="p-0">
+                                <?php for($i=0; $i<count($halamanStatis); $i++): ?>
+                                    <li class="d-block my-1">
+                                        <div class="py-2 ps-3 pe-2 border border-1">
+                                            <div class="float-end me-1">
+                                                <span class="d-inline-block px-2 fw-bold cursor-pointer" onclick="menuChildNewStatic(<?php echo "'".addslashes($halamanStatis[$i]['title'])."','s".$halamanStatis[$i]['ID']."','".$halamanStatis[$i]['url']."'"; ?>)">
+                                                    &raquo;
+                                                </span>
+                                            </div>
+                                            <div><?php echo $halamanStatis[$i]['title']; ?></div>
+                                        </div>
+                                    </li>
+                                <?php endfor; ?>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile-tab-pane-child" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                        <div class="border-start border-end border-bottom p-3" style="height: 350px; max-height: 350px; overflow-y: auto; background: #fff;">
+                            <p class="my-1 fst-italic">Halaman dinamis aktif:</p>
+                            <ul class="p-0">
+                                <?php for($i=0; $i<count($halamanDinamis); $i++): ?>
+                                    <li class="d-block my-1">
+                                        <div class="py-2 ps-3 pe-2 border border-1">
+                                            <div class="float-end me-1">
+                                                <span class="d-inline-block px-2 fw-bold cursor-pointer" onclick="menuChildNewDynamic(<?php echo "'".addslashes($halamanDinamis[$i]['title'])."','p".$halamanDinamis[$i]['ID']."','".base_url('halaman/'.$halamanDinamis[$i]['slug'])."'"; ?>)">
+                                                    &raquo;
+                                                </span>
+                                            </div>
+                                            <div><?php echo $halamanDinamis[$i]['title']; ?></div>
+                                        </div>
+                                    </li>
+                                <?php endfor; ?>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="contact-tab-pane-child" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                        <div class="border-start border-end border-bottom p-3" style="height: 350px; max-height: 350px; overflow-y: auto; background: #fff;">
+                            <p class="my-1 fst-italic">Kategori dinamis aktif:</p>
+                            <ul class="p-0">
+                                <?php for($i=0; $i<count($kategoriDinamis); $i++): ?>
+                                    <li class="d-block my-1">
+                                        <div class="py-2 ps-3 pe-2 border border-1">
+                                            <div class="float-end me-1">
+                                                <span class="d-inline-block px-2 fw-bold cursor-pointer" onclick="menuChildNewStatic(<?php echo "'".addslashes($kategoriDinamis[$i]['name'])."','c".$kategoriDinamis[$i]['ID']."','".base_url('artikel/arsip/'.$kategoriDinamis[$i]['ID'])."'"; ?>)">
+                                                    &raquo;
+                                                </span>
+                                            </div>
+                                            <div><?php echo $kategoriDinamis[$i]['name']; ?></div>
+                                        </div>
+                                    </li>
+                                <?php endfor; ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
