@@ -51,7 +51,7 @@
                             <?php $menu1 = $navMenu1; ?>
                             <li>
                                 <a href="javascript:void(0)<?php //echo base_url('halaman/'.$menu1['nav_slug']);?>" class="a-normal text-light">
-                                    <?php echo $menu1['page'][$menu1['menu']['menu_ID']]['title'];?>
+                                    <?php echo $menu1['page'][$menu1['menu']['menu_ID']]['title']??'';?>
                                 </a>
                                 <table border="0" style="margin-center: -8%;">
                                     <tr>
@@ -68,7 +68,7 @@
                                             <ul>
                                                 <?php for($i=0; $i<count($menu1['menu']['menu_child']); $i++): ?>
                                                     <li<?php if($menu1['menu']['menu_child'][$i]['menu_child']) echo ' class="induk-semang"'; ?>>
-                                                        <a href="<?php echo base_url('halaman/'.$menu1['page'][$menu1['menu']['menu_child'][$i]['menu_ID']]['slug']); ?>" class="a-normal text-dark">
+                                                        <a href="<?php echo base_url('halaman/'.($menu1['page'][$menu1['menu']['menu_child'][$i]['menu_ID']]['slug']??'')); ?>" class="a-normal text-dark">
                                                             <?php echo $menu1['page'][$menu1['menu']['menu_child'][$i]['menu_ID']]['title']; ?>
                                                             <?php if($menu1['menu']['menu_child'][$i]['menu_child']) echo ' <i class="bi bi-chevron-right"></i>'; ?>
                                                         </a>
