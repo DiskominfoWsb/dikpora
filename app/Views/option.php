@@ -34,7 +34,7 @@
                                 </div>
                                 <p class="my-1 fst-italic">Halaman statis yang tersedia:</p>
                                 <ul class="p-0">
-                                    <?php for($i=0; $i<count($halamanStatis??0); $i++): ?>
+                                    <?php for($i=0; $i<count($halamanStatis); $i++): ?>
                                     <li class="d-block my-1">
                                         <div class="py-2 ps-3 pe-2 border border-1">
                                             <div class="float-end me-1">
