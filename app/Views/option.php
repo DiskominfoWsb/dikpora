@@ -8,16 +8,7 @@
         </div>
     <?php endif; ?>
 
-                <div class="col-lg-1 text-center">
-                    <br><br><br><br><br><br><br><br>
-                    <i class="bi bi-chevron-right fs-2"></i>
-                </div>
-
-                <div id="canvasNavMenuNew" class="col-lg-6 ps-0 form-group" style="height: 388px; max-height: 388px; overflow-y: scroll;">
-                    <ul id="parent-0" class="menu-sortable m-0 p-0">
-                        <?php echo $navMenuNew; ?>
-                    </ul>
-                </div>
+            
 
                 <div class="col-12 mb-1 px-3"><hr class="border-1"></div>
 
